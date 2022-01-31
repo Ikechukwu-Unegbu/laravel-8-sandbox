@@ -23,9 +23,6 @@ use App\Http\Controllers\TodoListController;
 // Route::get('/vehicle', [VehicleController::class, 'show']);
 // Route::post('/new_account', [AuthController::class, 'register']);
 
-Route::get('todo-list', [TodoListController::class, 'index'])->name('todo-list.index');
-
-
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -35,3 +32,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('upload', [AwsImageController::class, 'index']);
 Route::post('upload', [AwsImageController::class, 'upload']);
 
+
+
+// TEST DRIVEN API ROUTES
+Route::get('todo-list', [TodoListController::class, 'index'])->name('todo-list.index');
+Route::get('todo-list/{id}',[TodoListController::class, 'show'])->name('todo-list.show');
