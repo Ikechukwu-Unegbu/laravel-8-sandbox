@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Providers\LoginHistory;
 use Illuminate\Http\Client\ResponseSequence;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Validator;
@@ -63,7 +64,7 @@ class AuthController extends Controller
 
         $user = User::where('email', $request['email'])->firstOrFail();
         $token = $user->createToken('auth_token')->plainTextToken;
-
+        event(new LoginHistory($user));
         return response()->json(['message'=>'Hi '.$user->name.',  welcome to home', 'access_token'=>$token, 'token_type'=>'Bearer']);
     }
 

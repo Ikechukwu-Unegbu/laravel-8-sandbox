@@ -13,7 +13,7 @@ use Illuminate\Queue\SerializesModels;
 class LoginHistory
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-
+    public $user;
     /**
      * Create a new event instance.
      *
