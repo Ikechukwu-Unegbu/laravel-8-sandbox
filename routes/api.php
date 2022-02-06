@@ -36,4 +36,6 @@ Route::post('upload', [AwsImageController::class, 'upload']);
 
 // TEST DRIVEN API ROUTES
 Route::get('todo-list', [TodoListController::class, 'index'])->name('todo-list.index');
-Route::get('todo-list/{id}',[TodoListController::class, 'show'])->name('todo-list.show');
+Route::get('todo-list/{todolist}',[TodoListController::class, 'show'])->name('todo-list.show');
+
+Route::post('todo-list', [TodoListController::class, 'store'])->name('todo-list.store');

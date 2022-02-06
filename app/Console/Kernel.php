@@ -4,6 +4,10 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Carbon\Carbon;
+use App\Jobs\SendEmailJob;
+
+
 
 class Kernel extends ConsoleKernel
 {
@@ -13,9 +17,14 @@ class Kernel extends ConsoleKernel
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
-    protected function schedule(Schedule $schedule)
-    {
-        // $schedule->command('inspire')->hourly();
+    protected function schedule(Schedule $schedule){
+        $now = Carbon::now();
+        $month = $now->format('F');
+        $year = $now->format('yy');
+
+        $fourthFridayMonthly = new Carbon('fourth friday of ' .$month . '' .$year);
+
+        $schedule->job(new SendEmailJob)->monthlyOn($fourthFridayMonthly->format('d'), '13:46');
     }
 
     /**

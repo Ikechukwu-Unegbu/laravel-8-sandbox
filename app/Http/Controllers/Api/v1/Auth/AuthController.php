@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\Gmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -11,7 +12,7 @@ use App\Providers\LoginHistory;
 use Illuminate\Http\Client\ResponseSequence;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Facades\Mail;
 
 
 class AuthController extends Controller
@@ -19,22 +20,12 @@ class AuthController extends Controller
     //
 
     public function register(Request $request){
-    //    $validation= $request->validate([
-    //         'name' => ['required', 'string', 'max:255'],
-    //         'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-    //         'password' => ['required', 'confirmed', Rules\Password::defaults()],
-    //     ]);
-
-    // $array = [
-    //     'name'=>$request->name,
-    //     'email'=>$request->email
-    // ]; 
-    // var_dump($array);die;
-    $validator = Validator::make($request->all(),[
-        'name' => 'required|string|max:255',
-        'email' => 'required|string|email|max:255|unique:users',
-        'password' => 'required|string|min:8'
-    ]);
+  
+        $validator = Validator::make($request->all(),[
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8'
+        ]);
 
         if($validator->fails()){
             return response()->json($validator->errors());
@@ -48,12 +39,19 @@ class AuthController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
+        $details = [
+            'title'=>'Thank you for signing registering with us.',
+            'body'=> 'You have successfully registered with artisan finder.'
+        ];
+        
+        Mail::to($request->input('email'))->send(new Gmail($details));
+        
         return response()->json(
             [
                 'data'=>$user, 
                 'access_token'=>$token
             ]
-            );
+            );//
 
     }
 
