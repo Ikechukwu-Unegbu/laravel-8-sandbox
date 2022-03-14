@@ -20,4 +20,5 @@ Route::get('/', function () {
 
 
 Route::get('upload', [AwsImageController::class, 'index'])->name('image.index');
-Route::post('upload', [AwsImageController::class, 'upload'])->name('image.upload');
+Route::post('upload', [AwsImageController::class, 'upload'])->name('image.upload')->middleware(['cors']);
+Route::get('/upload/page', [AwsImageController::class, 'uploadpage']);
