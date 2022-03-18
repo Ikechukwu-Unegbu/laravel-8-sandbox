@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AwsImageController;
+use App\Http\Controllers\FileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +23,6 @@ Route::get('/', function () {
 Route::get('upload', [AwsImageController::class, 'index'])->name('image.index');
 Route::post('upload', [AwsImageController::class, 'upload'])->name('image.upload')->middleware(['cors']);
 Route::get('/upload/page', [AwsImageController::class, 'uploadpage']);
+
+Route::get('/file', [FileController::class, 'uploadpage'])->name('file');
+Route::post('/file', [FileController::class, 'upload'])->name('file.upload');

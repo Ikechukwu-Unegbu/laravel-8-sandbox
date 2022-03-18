@@ -9,17 +9,17 @@
 <body>
   <h2>Aws Images</h2>
 
-  <!-- dd({{$aws->name}});
-  dd({{$aws->img_url}}); -->
-  <!-- Storage::disk('s3')->has('file.jpg'); -->
-  @if(Storage::disk('s3')->has('ujx0RwlxSrg5F3poDkdBMWOs5hKkUCIzO06EjXbF.jpg')):
-  <h1>The file exists</h1>
+  @if (Storage::disk('s3')->exists('images/6bZlCyP9dN2mEfbmFmzv5NmJQDanfr3qfpFT5Izi.jpg'))
+    <div class="mt-4">
+      <h1>Image exists</h1>
+    </div>
   @else
-  <h1>The file doesnt exist</h1>
-  @endif
- 
 
+    <h1>Image does not exist</h1>
+
+  @endif
     <img src="https://first-bucket-by-vincent.s3.amazonaws.com/images/6bZlCyP9dN2mEfbmFmzv5NmJQDanfr3qfpFT5Izi.jpg" alt="">
+    <img src="{{ Storage::disk('s3')->url('images/6bZlCyP9dN2mEfbmFmzv5NmJQDanfr3qfpFT5Izi.jpg') }}" alt="">
 
 </body>
 </html>
