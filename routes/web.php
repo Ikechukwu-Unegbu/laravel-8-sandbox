@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AwsImageController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SearchErrorHandlingController;
+use App\Models\Product;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,3 +33,11 @@ Route::post('/file', [FileController::class, 'upload'])->name('file.upload');
 
 Route::get('/search', [SearchErrorHandlingController::class, 'index'])->name('search.index');
 Route::post('/search', [SearchErrorHandlingController::class, 'search'])->name('search');
+
+
+Route::get('/products', [ProductController::class, 'index'])->name('product');
+Route::post('/products', [ProductController::class, 'store'])->name('product.store');
+Route::get('/product/{id}', [ProductController::class, 'get']);
+Route::get('/pro/{id}', [ProductController::class, 'getApi']);
+
+Route::get('/getquery', [ProductController::class, 'query'])->name('query');
