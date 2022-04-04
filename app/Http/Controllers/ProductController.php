@@ -46,7 +46,7 @@ class ProductController extends Controller
     }
 
     public function queryPost(Request $request){
-        var_dump($request->post('name'));
-        return ;
+        
+        return response($request->all());
     }
 }

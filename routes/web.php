@@ -45,7 +45,7 @@ Route::get('/pro/{id}', [ProductController::class, 'getApi']);
 Route::get('/getquery', [ProductController::class, 'query'])->name('query');
 
 Route::get('/postquery', [ProductController::class, 'postIndex'])->name('post.get');
-Route::get('/getquery', [ProductController::class, 'postcall'])->name('post.call');
+Route::post('/getquery', [ProductController::class, 'queryPost'])->name('post.call');
 
 Route::get('/morph',[GenericController::class, 'store']);
 

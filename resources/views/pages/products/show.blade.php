@@ -37,6 +37,7 @@ console.log(data.body)
 
 fetch('/pro/1')
 .then(data => {
+  
 return data.json();
 })
 .then(post => {

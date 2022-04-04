@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    
       <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
@@ -13,11 +13,15 @@
   <body>
     <!-- <h1>Hello, world!</h1> -->
     <div class="container">
-      <form  id='form' >
+      <form  id='form'>
      
-      <input type="hidden" name="_csrf" id="csrf" value="{{ csrf_token() }}">
      
-        <input type="text">
+      <div class="form-group mt-3">
+          <!-- <label for="" class="form-label">Vendor</label> -->
+          <input type="hidden" hidden name="_csrf" id="csrf" value="{{ csrf_token() }}" class="form-control">
+        </div>
+
+     
         <div class="form-group mt-3">
           <label for="" class="form-label">Vendor</label>
           <input type="text" name="vendor" id="vendor" class="form-control">
@@ -64,9 +68,11 @@
           vendor:vendor.value,
           email:email.value,
         }
+        let csrf = document.querySelector('input[name="_csrf"]').value;
         console.log(payload);
+        console.log(csrf);
         const options = {
-          method:'GET',
+          method:'POST',
           headers:{
             'Content-Type':'application/json',
             'X-CSRF-Token': document.querySelector('input[name="_csrf"]').value
@@ -75,7 +81,12 @@
         }
         
         //make the call 
-        fetch('/getquery', options)
+        fetch('./getquery', options)
+        .then(data=>{
+          return data.json();
+        }).then(post => {
+          console.log('post',post)
+        })
 
       } );
        
