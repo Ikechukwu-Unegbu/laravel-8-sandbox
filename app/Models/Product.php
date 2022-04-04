@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
+
+    public function morphs(){
+        return $this->morphMany(Morph::class, 'morphable');
+    }
 }

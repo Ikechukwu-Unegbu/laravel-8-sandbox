@@ -40,4 +40,13 @@ class ProductController extends Controller
         $invitee = $request->input('invitee');
         var_dump($invitee);
     }
+
+    public function postIndex(){
+        return view('pages.products.post');
+    }
+
+    public function queryPost(Request $request){
+        var_dump($request->post('name'));
+        return ;
+    }
 }

@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AwsImageController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\GenericController;
+use App\Http\Controllers\MultiImageUploadController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SearchErrorHandlingController;
 use App\Models\Product;
@@ -41,3 +43,11 @@ Route::get('/product/{id}', [ProductController::class, 'get']);
 Route::get('/pro/{id}', [ProductController::class, 'getApi']);
 
 Route::get('/getquery', [ProductController::class, 'query'])->name('query');
+
+Route::get('/postquery', [ProductController::class, 'postIndex'])->name('post.get');
+Route::get('/getquery', [ProductController::class, 'postcall'])->name('post.call');
+
+Route::get('/morph',[GenericController::class, 'store']);
+
+Route::get('/multi', [MultiImageUploadController::class, 'create']);
+Route::post('/upload', [MultiImageUploadController::class, 'store'])->name('imageUpload');
